@@ -1,0 +1,1 @@
+I personally prefer using participant for Server and Database, only use Actor for user, but I've follow the instruction which said 3 must be actors.

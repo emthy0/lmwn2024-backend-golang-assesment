@@ -1,0 +1,48 @@
+basePath: /
+definitions:
+  covidsummaryapi.APIResponse:
+    properties:
+      Age:
+        additionalProperties:
+          type: integer
+        type: object
+      Province:
+        additionalProperties:
+          type: integer
+        type: object
+    type: object
+  covidsummaryapi.APIResponseError:
+    properties:
+      message:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: kongphop.c@kuranasaki.work
+    name: Kuranasaki
+  description: This is a covid summary API server.
+  license:
+    name: NIGGY License
+    url: https://github.com/Admin-OR-1-1/2110336-SE2-Crafty/blob/main/LICENSE
+  title: LMWN Assesment Covid Summary API
+  version: "1.0"
+paths:
+  /covid/summary:
+    get:
+      description: Generate Summary of Covid Patient in Thailand grouped by Province
+        and Age
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Fetch and Summarize Covid Data Success
+          schema:
+            $ref: '#/definitions/covidsummaryapi.APIResponse'
+        "500":
+          description: Server Error
+          schema:
+            $ref: '#/definitions/covidsummaryapi.APIResponseError'
+      tags:
+      - Covid
+swagger: "2.0"

@@ -1,0 +1,45 @@
+' Given endpoints /auth/signin and /me which are used to authenticate and get basic information of authenticated users respectively. 
+' There is a requirement to fetch basic information which requires authentication first, 
+' can you draw a sequence diagram with 3 actors: Browser, Server and Database to demonstrate the requirement? 
+' You can choose any authentication mechanism.*
+
+@startuml LMWN Junior Auth Seq Diagram
+actor Browser
+actor Server
+actor Database
+
+
+Browser -> Server: Request Signin\n[/auth/signin]
+activate Server
+Server -> Database: Validate Credentials
+activate Database
+Database -> Server: Return Validation flag
+deactivate Database
+
+alt Validation Success
+Server -> Server : Generate JWT Token using token secret.
+Server -> Browser: Return Token
+deactivate Server
+Browser -> Server: Request Basic Info [/me] (with Token)
+activate Server
+Server -> Server: Validate Token
+
+alt Token is valid
+Server -> Database: Retrieve User Data
+activate Database
+Database -> Server: Return User Data
+deactivate Database
+Server -> Browser: Return Basic Information
+
+else Token is invalid
+Server -> Browser: Return 401 (Unauthorized)
+end
+
+else Validation Failed
+Server -> Browser: Return 401 (Unauthorized)
+deactivate Server
+end
+
+
+@enduml
+

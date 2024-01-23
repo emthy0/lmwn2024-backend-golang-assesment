@@ -1,0 +1,20 @@
+services:
+  covid-summary:
+    restart: always
+    build:
+      context: ../
+      dockerfile: deployment/Dockerfile
+    ports:
+      - "8080:8080"
+    deploy:
+      mode: replicated
+      replicas: 1
+
+    develop:
+      watch:
+        - path: ./internal
+          action: rebuild
+        - path: ./pkg
+          action: rebuild
+        - path: ./main.go
+          action: rebuild

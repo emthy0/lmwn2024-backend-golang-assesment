@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: covid-summary
+  namespace: lmwn-assesment
+spec:
+  selector:
+    matchLabels:
+      app: covid-summary-api
+  template:
+    metadata:
+      labels:
+        app: covid-summary-api
+    spec:
+      containers:
+      - name: api-server
+        imagePullPolicy: Always
+        image: kuranasaki/lmwn-assesment:latest
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: "1000m"
+            memory: "1Gi"
+          requests:
+            cpu: "200m"
+            memory: "256Mi"

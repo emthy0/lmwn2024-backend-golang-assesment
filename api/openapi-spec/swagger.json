@@ -1,0 +1,72 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a covid summary API server.",
+        "title": "LMWN Assesment Covid Summary API",
+        "contact": {
+            "name": "Kuranasaki",
+            "email": "kongphop.c@kuranasaki.work"
+        },
+        "license": {
+            "name": "NIGGY License",
+            "url": "https://github.com/Admin-OR-1-1/2110336-SE2-Crafty/blob/main/LICENSE"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/covid/summary": {
+            "get": {
+                "description": "Generate Summary of Covid Patient in Thailand grouped by Province and Age",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Covid"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Fetch and Summarize Covid Data Success",
+                        "schema": {
+                            "$ref": "#/definitions/covidsummaryapi.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/covidsummaryapi.APIResponseError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "covidsummaryapi.APIResponse": {
+            "type": "object",
+            "properties": {
+                "Age": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                },
+                "Province": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "covidsummaryapi.APIResponseError": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
